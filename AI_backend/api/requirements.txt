@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+tensorflow
+numpy
+psycopg2-binary
+prometheus_client

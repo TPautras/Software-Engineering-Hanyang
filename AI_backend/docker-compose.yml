@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: drugpwd
+      POSTGRES_USER: druguser
+      POSTGRES_DB: drugdb
+    ports:
+      - "5432:5432"
+
+  drug-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    environment:
+      POSTGRES_URI: postgresql://druguser:drugpwd@postgres:5432/drugdb
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  prometheus:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - drug-api

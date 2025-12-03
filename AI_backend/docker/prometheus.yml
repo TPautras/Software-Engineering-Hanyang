@@ -1,0 +1,6 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: drug-api
+    static_configs:
+      - targets: ["drug-api:8000"]
