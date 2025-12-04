@@ -8,7 +8,7 @@ export default function WelcomePage() {
   return (
     <div className="gradient-bg welcome-page">
       <header className="welcome-header">
-        <div className="logo">logo here!</div>
+        <div className="logo">PharmaTrack</div>
         <div className="header-buttons">
           <button className="header-btn" onClick={() => navigate('/login')}>
             Log in
@@ -20,7 +20,6 @@ export default function WelcomePage() {
       </header>
 
       <main className="welcome-content">
-        <div className="logo-center">logo here!</div>
         <h1 className="tagline">
           TRACK HOW YOUR BODY<br />RESPONDS TO MEDICATION!
         </h1>

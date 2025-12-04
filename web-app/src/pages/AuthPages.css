@@ -4,18 +4,24 @@
   align-items: center;
   min-height: 100vh;
   padding: 40px 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .auth-content {
   text-align: center;
   width: 100%;
   max-width: 400px;
+  position: relative;
+  z-index: 2;
 }
 
 .auth-content .logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000;
+  font-size: 36px;
+  font-weight: 400;
+  font-family: 'Gamja Flower', cursive;
+  color: #000000;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   margin-bottom: 60px;
 }
 
@@ -31,6 +37,8 @@
 .form-group label {
   display: block;
   font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
   color: #666;
   margin-bottom: 8px;
 }
@@ -41,6 +49,7 @@
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
   background-color: #fff;
 }
 
@@ -56,6 +65,7 @@
   padding: 15px;
   border-radius: 8px;
   font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
   font-weight: 600;
   cursor: pointer;
   margin-top: 30px;
@@ -79,6 +89,8 @@
 .auth-footer p {
   color: #000;
   font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
   margin-bottom: 5px;
 }
 
@@ -88,6 +100,8 @@
   color: #000;
   text-decoration: underline;
   font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
   font-style: italic;
   cursor: pointer;
 }

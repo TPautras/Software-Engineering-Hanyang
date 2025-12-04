@@ -1,11 +1,15 @@
 .manage-med-page {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .manage-content {
   padding: 40px;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
 .medication-list-container {
@@ -26,6 +30,8 @@
   border-radius: 8px;
   margin-bottom: 15px;
   font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
 }
 
 .add-medication-btn {
@@ -36,6 +42,7 @@
   padding: 15px;
   border-radius: 8px;
   font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
   font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
@@ -71,7 +78,9 @@
 
 .modal-content h2 {
   font-size: 22px;
-  font-weight: bold;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -87,6 +96,7 @@
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
 }
 
 .search-icon {
@@ -98,6 +108,8 @@
 
 .sublabel {
   font-size: 12px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
   color: #666;
   margin: 8px 0;
 }
@@ -107,6 +119,8 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 15px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
 }
 
 .small-input {
@@ -115,6 +129,21 @@
   border: none;
   border-radius: 6px;
   font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
+}
+
+.time-input {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
+  background: white;
+  margin-left: 10px;
+}
+
+.hours-indent {
+  margin-left: 40px;
 }
 
 .modal-buttons {
@@ -131,6 +160,7 @@
   padding: 15px;
   border-radius: 8px;
   font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;

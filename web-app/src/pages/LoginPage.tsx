@@ -30,9 +30,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="gradient-bg auth-page">
+    <div className="gradient-bg-center auth-page">
       <div className="auth-content">
-        <div className="logo">logo here!</div>
+        <div className="logo">PharmaTrack</div>
 
         <form className="auth-form" onSubmit={handleLogin}>
           <div className="form-group">

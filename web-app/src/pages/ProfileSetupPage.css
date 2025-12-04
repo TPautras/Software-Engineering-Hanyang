@@ -4,12 +4,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 36px;
+  font-family: 'Gamja Flower', cursive;
+  font-weight: 400;
   color: #000;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   margin-bottom: 30px;
   text-align: center;
 }
@@ -34,6 +38,8 @@
   gap: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
+  font-weight: 400;
 }
 
 .checkbox-label input[type="radio"] {
@@ -58,6 +64,7 @@
   padding: 15px 20px;
   border-radius: 8px;
   font-size: 14px;
+  font-family: 'Kulim Park', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;

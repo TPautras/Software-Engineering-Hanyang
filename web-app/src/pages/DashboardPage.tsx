@@ -48,7 +48,7 @@ export default function DashboardPage() {
   return (
     <div className="gradient-bg dashboard-page">
       <header className="dashboard-header">
-        <div className="logo">logo here!</div>
+        <div className="logo">PharmaTrack</div>
         <nav className="nav-menu">
           <button className="nav-link active">Dashboard</button>
           <button className="nav-link" onClick={() => navigate('/manage-medication')}>
@@ -103,6 +103,17 @@ export default function DashboardPage() {
             <div className="chart-container">
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="concentrationGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#9D4EDD" />
+                      <stop offset="20%" stopColor="#ba64fcff" />
+                      <stop offset="40%" stopColor="#f8a85dff" />
+                      <stop offset="50%" stopColor="#FF9F45" />
+                      <stop offset="60%" stopColor="#f8a85dff" />
+                      <stop offset="80%" stopColor="#ba64fcff" />
+                      <stop offset="100%" stopColor="#9D4EDD" />
+                    </linearGradient>
+                  </defs>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="time" />
                   <YAxis />
@@ -110,7 +121,7 @@ export default function DashboardPage() {
                   <Line
                     type="monotone"
                     dataKey="concentration"
-                    stroke={Colors.concentrationLine}
+                    stroke="url(#concentrationGradient)"
                     strokeWidth={3}
                     dot={false}
                   />
