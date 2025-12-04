@@ -116,9 +116,8 @@ Key non-functional constraints that shape the implementation:
 
 ## 4. System Architecture (High-Level) 
 
-### temporary diagram
-![diagram](/doc/diagram/ai_pk_health_app_architecture.png)
-https://github.com/TPautras/Software-Engineering-Hanyang/blob/30f8b5b22f252f4c29fc9d0775c87026090503b4/doc/diagram/g01%20(2).png
+
+![diagram](/doc/diagram/g01.png)
 
 
 **1. Mobile Client (Android / iOS)**
