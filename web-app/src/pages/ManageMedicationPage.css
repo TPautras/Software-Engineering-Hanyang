@@ -1,0 +1,163 @@
+.manage-med-page {
+  min-height: 100vh;
+}
+
+.manage-content {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.medication-list-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.medication-list {
+  background-color: #E5E5E5;
+  border-radius: 16px;
+  padding: 30px;
+  min-height: 400px;
+}
+
+.medication-item {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.add-medication-btn {
+  width: 100%;
+  background-color: #5B7FED;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.add-medication-btn:hover {
+  background-color: #4A6FDC;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #E5E5E5;
+  border-radius: 16px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 15px 40px 15px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sublabel {
+  font-size: 12px;
+  color: #666;
+  margin: 8px 0;
+}
+
+.schedule-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.small-input {
+  width: 60px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.modal-btn {
+  flex: 1;
+  background-color: #5B7FED;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-btn:hover {
+  background-color: #4A6FDC;
+}
+
+.modal-btn.cancel {
+  background-color: #666;
+}
+
+.modal-btn.cancel:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .manage-content {
+    padding: 20px;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .schedule-row {
+    flex-wrap: wrap;
+  }
+}

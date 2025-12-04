@@ -159,99 +159,130 @@ Key non-functional constraints that shape the implementation:
 
 ### 5.1 Prerequisites
 
-* Mobile development environment set up (Android Studio / Xcode or equivalent)
-* Backend runtime (e.g., Node.js / Python / etc.)
-* Database server (e.g., PostgreSQL / MySQL / MongoDB)
-* Access keys for any health data APIs and push notification services you use
+**Backend (AI_backend):**
+* Docker and Docker Compose
+* Python 3.11+ (for local development)
 
-### 5.2 Installation (example workflow)
+**Mobile App:**
+* Node.js v18+
+* npm or yarn
+* Expo CLI (`npm install -g expo-cli`)
+* iOS Simulator (macOS) or Android Emulator
+* Expo Go app (for testing on physical devices)
+
+### 5.2 Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/pharmaco-ai-app.git
-cd pharmaco-ai-app
+git clone https://github.com/your-org/Software-Engineering-Hanyang.git
+cd Software-Engineering-Hanyang
 
 # Install mobile app dependencies
-cd mobile
-# e.g. for a JS stack:
+cd mobile-app
 npm install
-# or yarn / pnpm, depending on your setup
 
-# Install backend dependencies
-cd ../backend
-# e.g. for Node:
-npm install
-# or for Python:
-# pip install -r requirements.txt
+# Backend dependencies are handled by Docker
 ```
 
-### 5.3 Configuration
+### 5.3 Running the Application
 
-Create and configure environment variable files for each component.
-
-**Backend `.env` (example):**
+**Step 1: Start the AI Backend**
 
 ```bash
-# Core
-APP_ENV=development
-APP_PORT=8080
+cd AI_backend
+docker-compose up -d
 
-# Database
-DB_URL=postgres://user:password@localhost:5432/pharmaco_ai
+# View logs
+docker-compose logs -f drug-api
 
-# Auth
-JWT_SECRET=change_me
-OAUTH_GOOGLE_CLIENT_ID=xxxx
-OAUTH_GOOGLE_CLIENT_SECRET=xxxx
-
-# Health APIs
-HEALTHKIT_API_KEY=...
-HEALTH_CONNECT_API_KEY=...
-
-# Storage / Research
-CLOUD_STORAGE_BUCKET=...
-RESEARCH_EXPORT_ENDPOINT=...
+# The API will be available at http://localhost:8000
 ```
 
-**Mobile app config (example):**
+**Step 2: Configure Mobile App API Endpoint**
 
-* API base URL
-* OAuth client IDs
-* Feature flags (e.g., enableWearableIntegration, enableResearchExport)
+Edit `mobile-app/src/constants/config.ts`:
 
-### 5.4 Running Locally
+```typescript
+export const Config = {
+  API_BASE_URL: 'http://localhost:8000',  // For iOS simulator
+  // API_BASE_URL: 'http://10.0.2.2:8000',  // For Android emulator
+  // API_BASE_URL: 'http://192.168.x.x:8000',  // For physical device
+};
+```
+
+**Step 3: Start the Mobile App**
 
 ```bash
-# Start backend
-cd backend
-npm run dev
-# or equivalent in your stack
+cd mobile-app
+npm start
 
-# Start mobile app (example React Native)
-cd ../mobile
-npm run android   # or npm run ios
+# Then choose one of:
+# - Press 'i' for iOS simulator
+# - Press 'a' for Android emulator
+# - Scan QR code with Expo Go app on your device
+```
+
+### 5.4 Testing the Integration
+
+1. Open the mobile app
+2. Sign up with an email/password
+3. Fill in your profile information
+4. Add a medication
+5. Navigate to Dashboard
+6. Click "Refresh" to fetch predictions from the backend
+7. The app will call `POST http://localhost:8000/predict` with mock data
+
+### 5.5 Stopping the Services
+
+```bash
+# Stop backend
+cd AI_backend
+docker-compose down
+
+# Stop mobile app
+# Press Ctrl+C in the Expo terminal
 ```
 
 ---
 
-## 6. Project Structure (Template)
-
-Adjust to reflect your actual tree:
+## 6. Project Structure
 
 ```text
 .
-├── backend/                 # API, auth, models, PK data, ML integration
+├── AI_backend/              # AI/ML Backend Service
+│   ├── api/                # FastAPI inference endpoints
+│   │   ├── inference_main.py    # Main API server
+│   │   ├── postgres_logger.py   # Prediction logging
+│   │   ├── prometheus_metrics.py # Metrics collection
+│   │   └── requirements.txt
+│   ├── data_loader/        # Firestore data extraction
+│   │   ├── firestore_loader.py
+│   │   └── discover_firestore.py
+│   ├── training/           # Model training scripts
+│   │   ├── train_lstm.py
+│   │   ├── train_mlp.py
+│   │   └── preprocess.py
+│   ├── models/             # Trained model artifacts
+│   │   └── model_lstm.h5
+│   ├── docker/             # Docker configurations
+│   │   ├── Dockerfile.api
+│   │   └── Dockerfile.prometheus
+│   └── docker-compose.yml  # Services orchestration
+├── mobile-app/             # React Native Mobile Application
 │   ├── src/
-│   ├── tests/
-│   └── ...
-├── mobile/                  # Mobile client app (Android/iOS)
-│   ├── src/
-│   ├── assets/
-│   └── ...
-├── docs/                    # Design docs, PK references, regulatory notes
-│   └── G01-Assignment-project-2.pdf
-├── scripts/                 # Data import/export, anonymization tools
-└── README.md                # This file
+│   │   ├── screens/       # All UI screens
+│   │   ├── navigation/    # React Navigation setup
+│   │   ├── services/      # API and storage services
+│   │   ├── constants/     # Colors, config
+│   │   └── types/         # TypeScript definitions
+│   ├── App.tsx            # Main app entry point
+│   ├── package.json       # Dependencies
+│   └── README.md          # Mobile app documentation
+├── doc/                    # Project documentation
+│   ├── G01-Assignment-project-2.pdf
+│   └── diagram/           # Architecture diagrams
+├── CLAUDE.md              # Claude Code guidance
+└── README.md              # This file
 ```
 
 ---
