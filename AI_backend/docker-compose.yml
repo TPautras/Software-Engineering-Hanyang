@@ -1,31 +1,35 @@
-version: "3.9"
-
 services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_PASSWORD: drugpwd
-      POSTGRES_USER: druguser
-      POSTGRES_DB: drugdb
-    ports:
-      - "5432:5432"
-
   drug-api:
     build:
       context: .
       dockerfile: docker/Dockerfile.api
-    environment:
-      POSTGRES_URI: postgresql://druguser:drugpwd@postgres:5432/drugdb
+    container_name: drug-api-1
     ports:
       - "8000:8000"
+    volumes:
+      - .:/app
     depends_on:
       - postgres
 
+  postgres:
+    image: postgres:15
+    container_name: postgres-1
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: drugdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   prometheus:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.prometheus
+    image: prom/prometheus
+    container_name: prometheus-1
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
-    depends_on:
-      - drug-api
+
+volumes:
+  pgdata:

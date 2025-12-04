@@ -1,6 +1,7 @@
 fastapi
 uvicorn
-tensorflow
+torch
 numpy
+pandas
 psycopg2-binary
 prometheus_client
