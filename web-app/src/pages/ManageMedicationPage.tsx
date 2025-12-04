@@ -12,6 +12,7 @@ export default function ManageMedicationPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [dosage, setDosage] = useState('');
   const [frequency, setFrequency] = useState<'daily' | 'weekly'>('daily');
+  const [dailyTime, setDailyTime] = useState('09:00');
   const [timesPerDay, setTimesPerDay] = useState('1');
   const [interval, setInterval] = useState('24');
 
@@ -56,6 +57,7 @@ export default function ManageMedicationPage() {
     setSearchQuery('');
     setDosage('');
     setFrequency('daily');
+    setDailyTime('09:00');
     setTimesPerDay('1');
     setInterval('24');
   };
@@ -68,7 +70,7 @@ export default function ManageMedicationPage() {
   return (
     <div className="gradient-bg manage-med-page">
       <header className="dashboard-header">
-        <div className="logo">logo here!</div>
+        <div className="logo">PharmaTrack</div>
         <nav className="nav-menu">
           <button className="nav-link" onClick={() => navigate('/dashboard')}>
             Dashboard
@@ -118,7 +120,6 @@ export default function ManageMedicationPage() {
             </div>
 
             <div className="form-group">
-              <label>Dosage per consumption</label>
               <input
                 type="number"
                 placeholder="Enter dosage (mg)"
@@ -141,6 +142,12 @@ export default function ManageMedicationPage() {
                   />
                   <span>daily, at</span>
                 </label>
+                <input
+                  type="time"
+                  className="time-input"
+                  value={dailyTime}
+                  onChange={(e) => setDailyTime(e.target.value)}
+                />
               </div>
 
               <div className="schedule-row">
@@ -165,7 +172,7 @@ export default function ManageMedicationPage() {
                   value={interval}
                   onChange={(e) => setInterval(e.target.value)}
                 />
-                <span>hours</span>
+                <span className="hours-indent">hours</span>
               </div>
             </div>
 

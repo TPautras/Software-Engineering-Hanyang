@@ -53,7 +53,7 @@ export default function ProfilePage() {
   return (
     <div className="gradient-bg profile-page">
       <header className="dashboard-header">
-        <div className="logo">logo here!</div>
+        <div className="logo">PharmaTrack</div>
         <nav className="nav-menu">
           <button className="nav-link" onClick={() => navigate('/dashboard')}>
             Dashboard
