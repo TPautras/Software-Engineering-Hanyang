@@ -3,7 +3,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 from api.prometheus_metrics import metrics
-from api.postgres_logger import log_prediction
 
 x_scale = np.load("models/scaler_x_scale.npy")
 x_min = np.load("models/scaler_x_min.npy")
@@ -53,5 +52,4 @@ async def predict(payload: dict):
     pred = inverse_scale_y(pred_scaled)
     effect = float(pred[0])
     side = float(pred[1])
-    log_prediction(seq.tolist(), effect, side)
     return {"effect": effect, "sideEffect": side}
