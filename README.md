@@ -6,7 +6,7 @@
 
 ## 1. Overview
 
-This project is a **mobile-first health application** that provides **personalized predictions of drug efficacy and adverse effects** using AI.
+This project is a **web-based health application** that provides **personalized predictions of drug efficacy and adverse effects** using AI.
 
 Standard pharmacokinetic (PK) models and dosage guidelines are designed for “average” patients and often fail to capture inter-individual variability in drug response. Our goal is to help real people taking common medications (painkillers, antidepressants, anti-allergy drugs, etc.) to:
 
@@ -106,7 +106,7 @@ Key non-functional constraints that shape the implementation:
 * **Usability (NFR3)**
 
   * Simple, low-friction daily flows (log dose → give quick feedback → see prediction).
-  * Mobile-optimized design and accessibility-first UX.
+  * Responsive web design and accessibility-first UX.
 * **Reliability (NFR4)**
 
   * High availability for critical features (e.g., alerts).
@@ -120,17 +120,17 @@ Key non-functional constraints that shape the implementation:
 ![diagram](/doc/diagram/g01.png)
 
 
-**1. Mobile Client (Android / iOS)**
+**1. Web Application (React + TypeScript)**
 
 * User registration, auth, and profile setup
 * Medication management
 * Logging of doses, symptoms, side effects
 * Visualization of predictions & alerts
-* Local secure storage for offline use
+* Local browser storage for session management
 
 **2. Backend API & Data Layer**
 
-* REST/GraphQL API for the mobile client
+* REST/GraphQL API for the web client
 * User & medication database
 * Wearable/webhook integration handlers
 * Audit log & consent management
@@ -163,22 +163,20 @@ Key non-functional constraints that shape the implementation:
 * Docker and Docker Compose
 * Python 3.11+ (for local development)
 
-**Mobile App:**
+**Web App:**
 * Node.js v18+
 * npm or yarn
-* Expo CLI (`npm install -g expo-cli`)
-* iOS Simulator (macOS) or Android Emulator
-* Expo Go app (for testing on physical devices)
+* Modern web browser (Chrome, Firefox, Safari, or Edge)
 
 ### 5.2 Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/Software-Engineering-Hanyang.git
+git clone https://github.com/balqisinsyirah/Software-Engineering-Hanyang.git
 cd Software-Engineering-Hanyang
 
-# Install mobile app dependencies
-cd mobile-app
+# Install web app dependencies
+cd web-app
 npm install
 
 # Backend dependencies are handled by Docker
@@ -198,33 +196,30 @@ docker-compose logs -f drug-api
 # The API will be available at http://localhost:8000
 ```
 
-**Step 2: Configure Mobile App API Endpoint**
+**Step 2: Configure Web App API Endpoint**
 
-Edit `mobile-app/src/constants/config.ts`:
+Edit `web-app/src/constants/config.ts`:
 
 ```typescript
 export const Config = {
-  API_BASE_URL: 'http://localhost:8000',  // For iOS simulator
-  // API_BASE_URL: 'http://10.0.2.2:8000',  // For Android emulator
-  // API_BASE_URL: 'http://192.168.x.x:8000',  // For physical device
+  API_BASE_URL: 'http://localhost:8000',  // Local development
+  // API_BASE_URL: 'https://your-api-domain.com',  // Production
 };
 ```
 
-**Step 3: Start the Mobile App**
+**Step 3: Start the Web App**
 
 ```bash
-cd mobile-app
-npm start
+cd web-app
+npm run dev
 
-# Then choose one of:
-# - Press 'i' for iOS simulator
-# - Press 'a' for Android emulator
-# - Scan QR code with Expo Go app on your device
+# The web app will be available at http://localhost:5173
+# Open your browser and navigate to the URL shown in the terminal
 ```
 
 ### 5.4 Testing the Integration
 
-1. Open the mobile app
+1. Open the web app in your browser (http://localhost:5173)
 2. Sign up with an email/password
 3. Fill in your profile information
 4. Add a medication
@@ -239,8 +234,8 @@ npm start
 cd AI_backend
 docker-compose down
 
-# Stop mobile app
-# Press Ctrl+C in the Expo terminal
+# Stop web app
+# Press Ctrl+C in the Vite terminal
 ```
 
 ---
@@ -268,16 +263,17 @@ docker-compose down
 │   │   ├── Dockerfile.api
 │   │   └── Dockerfile.prometheus
 │   └── docker-compose.yml  # Services orchestration
-├── mobile-app/             # React Native Mobile Application
+├── web-app/                # React + TypeScript Web Application
 │   ├── src/
-│   │   ├── screens/       # All UI screens
-│   │   ├── navigation/    # React Navigation setup
+│   │   ├── pages/         # All UI pages
 │   │   ├── services/      # API and storage services
 │   │   ├── constants/     # Colors, config
 │   │   └── types/         # TypeScript definitions
 │   ├── App.tsx            # Main app entry point
+│   ├── index.html         # HTML entry point
 │   ├── package.json       # Dependencies
-│   └── README.md          # Mobile app documentation
+│   ├── vite.config.ts     # Vite configuration
+│   └── README.md          # Web app documentation
 ├── doc/                    # Project documentation
 │   ├── G01-Assignment-project-2.pdf
 │   └── diagram/           # Architecture diagrams
