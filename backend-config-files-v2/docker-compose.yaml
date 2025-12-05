@@ -1,0 +1,150 @@
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+    environment:
+      REDIS_PASSWORD: pw
+    ports:
+      - 6379:6379
+    networks:
+      - app_network
+
+  mongo:
+    image: mongo:7.0.12
+    restart: always
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - 27018:27017
+    networks:
+      - app_network
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: |
+        mongosh --quiet --eval "
+          try { 
+            var status = rs.status(); 
+            if (status.ok) { quit(0); } else { quit(1); }
+          } catch (err) { 
+            rs.initiate({_id:'rs0', members:[{_id:0, host:'mongo:27017'}]}); 
+            quit(1);
+          }"
+      interval: 5s
+      timeout: 30s
+      start_period: 5s
+      retries: 30
+
+  postgres:
+    image: postgres:14.12
+    volumes:
+      - ./postgres-databases.sql:/docker-entrypoint-initdb.d/postgres-databases.sql
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - 5434:5432
+    networks:
+      - app_network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'pg_isready -U supertokens_user']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  supertokens:
+    image: supertokens/supertokens-postgresql:6.0
+    depends_on:
+      - postgres
+    ports:
+      - 3567:3567
+    environment:
+      POSTGRESQL_CONNECTION_URI: "postgresql://postgres:admin@postgres:5432/supertokens"
+    networks:
+      - app_network
+    restart: unless-stopped
+    healthcheck:
+      test: >
+        bash -c 'exec 3<>/dev/tcp/127.0.0.1/3567 && echo -e "GET /hello HTTP/1.1\r\nhost: 127.0.0.1:3567\r\nConnection: close\r\n\r\n" >&3 && cat <&3 | grep "Hello"'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  trino:
+    image: trinodb/trino:431
+    volumes:
+      - ./mongodb.properties:/etc/trino/catalog/mongodb.properties
+    depends_on:
+      - mongo
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  backend:
+    image: researchstack/backend-system:v2.0-beta
+    pull_policy: always
+    restart: always
+    depends_on:
+      - redis
+      - supertokens
+      - trino
+    ports:
+      - 50001:50001
+    environment:
+      debug: true
+      DATABASE_TYPE: MONGO
+      CASBIN_DB_HOST: postgres
+      CASBIN_DB_PORT: 5432
+      CASBIN_DB_SCHEMA: casbin
+      CASBIN_DB_USERNAME: postgres
+      CASBIN_DB_PASSWORD: admin
+      MONGODB_URI: mongodb://mongo:27017
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: pw
+      REDIS_SSL_ENABLED: false
+      SUPER_TOKENS_URL: http://supertokens:3567
+      TRINO_CATALOG: mongodb
+      TRINO_HOST: trino
+      TRINO_PORT: 8080
+    networks:
+      - app_network
+
+  portal:
+    image: bluesquanium/shs-web:latest
+    pull_policy: always
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+    environment:
+      API_URL: http://localhost:50001
+    networks:
+      - app_network
+
+  firebase-sync:
+    build: ./firebase-sync
+    restart: on-failure:10
+    depends_on:
+      mongo:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    environment:
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DATABASE: health_research
+      INITIAL_SYNC: "true"
+    volumes:
+      - ./service-account-key.json:/app/service-account-key.json:ro
+    networks:
+      - app_network
+     
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  postgres_data:

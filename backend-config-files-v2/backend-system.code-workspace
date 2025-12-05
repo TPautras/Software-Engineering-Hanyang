@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../backend-v1/backend-system"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "disabled",
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}
