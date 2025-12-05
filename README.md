@@ -6,6 +6,8 @@
 
 > [Demo video](https://youtu.be/b3dNrxpm3H8)
 
+> [Presentation Slides](doc/presentation.pdf)
+
 ---
 
 ## 1. Overview
@@ -29,96 +31,7 @@ These inputs feed a machine-learning model that outputs **time-series prediction
 
 ---
 
-## 2. Core Features
-
-Below is a high-level mapping to the functional requirements (FRs) defined in the project specification. 
-
-### 2.1 User & Medication Management
-
-* **Secure accounts & auth (FR1)**
-  Email/password login with support for OAuth (e.g., Google, Apple) and optional multi-factor authentication.
-* **Medication management (FR2, FR13)**
-  Add/edit/remove medications, doses, schedules, plus access to a searchable medication catalog with PK parameters (Tmax, Cmax, half-life, mechanism of action). Users can also define custom medications.
-* **Biometric & health profile (FR14)**
-  Store age, sex, height, weight, allergies, conditions, concurrent meds, etc., to contextualize predictions.
-
-### 2.2 Data Collection & Integration
-
-* **Wearable integration (FR3, FR15)**
-  Sync data (heart rate, sleep, activity, etc.) from APIs such as Google Health Connect / Apple HealthKit and other connected devices (e.g., BP cuffs, glucometers).
-* **Subjective feedback logging (FR4)**
-  Simple UI for the user to periodically rate drug effect and side-effects on a scale (e.g., 1–5).
-* **Continuous multi-source timeline (FR15, FR17)**
-  All user inputs and bio-signals are fused into a unified timeline; the system maintains **baselines** to distinguish drug-related changes from normal variability.
-
-### 2.3 AI-Powered Predictions & Visualization
-
-* **Personalized PK / response model (FR5, FR18)**
-  A machine-learning model predicts how drug levels and effects evolve over time for a given user, including side-effect risk.
-* **Explainable AI feedback (FR18)**
-  Predictions come with short explanations (e.g., “High dizziness risk due to elevated heart rate and rapidly rising drug level”).
-* **Interactive time-series graph (FR6)**
-  The app renders zoomable charts of:
-
-  * Predicted efficacy curve
-  * Side-effect probability/intensity
-  * Key events (dose times, expected peak, alerts)
-
-### 2.4 Notifications, Safety & Clinical Orientation
-
-* **Smart notifications (FR7, FR16)**
-  Alerts suggest optimal dosing times and warn before predicted high-risk side-effect periods. Alert thresholds are customizable per user or clinician preferences.
-* **Safety alerts (FR11)**
-  Notifications in case of:
-
-  * Very high predicted toxicity
-  * Anomalous vital signs
-  * Possible non-adherence that could imply risk
-    Optionally notify a trusted contact.
-* **Clinical integration & audit trail (FR20)**
-  All inputs, outputs, and configuration changes are logged to allow future **clinical validation** and regulatory review, and to support a possible “clinical mode” for healthcare professionals.
-
-### 2.5 Data Handling, Research & Settings
-
-* **History import & backup (FR8)**
-  Import past logs (CSV/JSON/API) and back up all data to a secure cloud backend.
-* **Anonymized research export (FR9)**
-  Export fully de-identified data for research while preserving pharmacological usefulness.
-* **Consent dashboard (FR10)**
-  Central place to manage what data is used for:
-
-  * Personal predictions
-  * Model training
-  * External research
-* **Multilingual & accessibility support (FR12)**
-  UI localized to multiple languages and aligned with WCAG 2.1; includes support for voice-based interactions.
-
----
-
-## 3. Non-Functional Requirements
-
-Key non-functional constraints that shape the implementation: 
-
-* **Security (NFR1)**
-
-  * Encryption in transit (HTTPS/TLS) and at rest.
-  * Hardened auth flows and least-privilege access to health APIs.
-* **Privacy (NFR2)**
-
-  * Strict separation between identifiable user data and training/analytics datasets.
-  * Explicit consent for every data-use category.
-* **Usability (NFR3)**
-
-  * Simple, low-friction daily flows (log dose → give quick feedback → see prediction).
-  * Responsive web design and accessibility-first UX.
-* **Reliability (NFR4)**
-
-  * High availability for critical features (e.g., alerts).
-  * Resilient syncing with wearables and offline-first behavior where relevant.
-
----
-
-## 4. System Architecture (High-Level) 
+## 2. System Architecture (High-Level) 
 
 
 ![diagram](/doc/diagram/diagram.jpeg)
@@ -159,9 +72,9 @@ Key non-functional constraints that shape the implementation:
 
 ---
 
-## 5. Getting Started
+## 3. Getting Started
 
-### 5.1 Prerequisites
+### 3.1 Prerequisites
 
 **Backend (AI_backend):**
 * Docker and Docker Compose
@@ -172,7 +85,7 @@ Key non-functional constraints that shape the implementation:
 * npm or yarn
 * Modern web browser (Chrome, Firefox, Safari, or Edge)
 
-### 5.2 Installation
+### 3.2 Installation
 
 ```bash
 # Clone the repository
@@ -186,7 +99,7 @@ npm install
 # Backend dependencies are handled by Docker
 ```
 
-### 5.3 Running the Application
+### 3.3 Running the Application
 
 **Step 1: Start the AI Backend**
 
@@ -221,7 +134,7 @@ npm run dev
 # Open your browser and navigate to the URL shown in the terminal
 ```
 
-### 5.4 Testing the Integration
+### 3.4 Testing the Integration
 
 1. Open the web app in your browser (http://localhost:5173)
 2. Sign up with an email/password
@@ -231,7 +144,7 @@ npm run dev
 6. Click "Refresh" to fetch predictions from the backend
 7. The app will call `POST http://localhost:8000/predict` with mock data
 
-### 5.5 Stopping the Services
+### 3.5 Stopping the Services
 
 ```bash
 # Stop backend
@@ -244,7 +157,7 @@ docker-compose down
 
 ---
 
-## 6. Project Structure
+## 4. Project Structure
 
 ```text
 .
@@ -287,7 +200,7 @@ docker-compose down
 
 ---
 
-## 7. Regulatory & Compliance Considerations
+## 5. Regulatory & Compliance Considerations
 
 The app sits at the boundary between **wellness** and **medical device**:
 
