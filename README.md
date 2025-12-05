@@ -1,4 +1,4 @@
-# PharmaTrakc
+# PharmaTrack
 
 ## An AI-based Application for Personalized Pharmacokinetic Modeling and Adverse Effect Prediction
 
@@ -119,7 +119,7 @@ Key non-functional constraints that shape the implementation:
 ## 4. System Architecture (High-Level) 
 
 
-![diagram](/doc/diagram/g01.png)
+![diagram](/doc/diagram/diagram.jpeg)
 
 
 **1. Web Application (React + TypeScript)**
