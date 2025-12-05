@@ -1,4 +1,6 @@
-# An AI-based Application for Personalized Pharmacokinetic Modeling and Adverse Effect Prediction
+# PharmaTrakc
+
+## An AI-based Application for Personalized Pharmacokinetic Modeling and Adverse Effect Prediction
 
 > [G01 – Assignment Project 2, Hanyang University](doc/G01-Assignment-project-2.pdf)
 
