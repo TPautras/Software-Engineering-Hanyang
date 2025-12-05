@@ -4,6 +4,8 @@
 
 > [G01 – Assignment Project 2, Hanyang University](doc/G01-Assignment-project-2.pdf)
 
+> [Demo video](https://youtu.be/b3dNrxpm3H8)
+
 ---
 
 ## 1. Overview
